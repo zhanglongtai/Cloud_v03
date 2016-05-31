@@ -1,0 +1,17 @@
+.mesh-gen-main-view {
+	margin: 10px 10px 10px 10px;
+}
+
+.page-head {
+	text-align: center;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.page-head-title {
+    margin-top: 10px;
+}
+
+.upload-file {
+	height: 300px;
+}

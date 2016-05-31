@@ -1,0 +1,32 @@
+.Brand {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	text-align: center;
+	position: relative;
+	padding: 10px 15px;
+}
+
+.FileBrowser {
+	margin: 10px 10px 10px 10px;
+}
+
+.page-head {
+	text-align: center;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.page-head-title {
+    margin-top: 10px;
+}
+
+.upload-file {
+	height: 300px;
+}
+
+.coordinate {
+	position: absolute;
+	bottom: 10%;
+	left: 10%;
+	z-index: 2;
+}
