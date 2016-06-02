@@ -1,9 +1,9 @@
 import React from 'react';
 import $ from 'jquery';
 import * as THREE from "three";
-import * as OrbitControls from 'three-orbit-controls';
-import * as STLLoader from 'three-stl-loader';
-import * as TrackballControls from 'three-trackballcontrols';
+//import * as threeStlLoader from 'three-stl-loader';
+var STLLoader = require('three-stl-loader')(THREE);
+import TrackballControls from 'three-trackballcontrols';
 import { updateModelAction } from '../../../actions';
 
 export default React.createClass({
@@ -47,9 +47,9 @@ export default React.createClass({
 			renderer = new THREE.WebGLRenderer();
             renderer.setClearColor( 0XEEEEEE );
 			renderer.setPixelRatio( window.devicePixelRatio );
-            canvasSize = {
+            let canvasSize = {
                              width: $("#model-viewer").width(),
-                             height: $("#model-viewer").height(),
+                             //height: $("#model-viewer").height(),
                          };
 			//renderer.setSize( 600, 600 );
             renderer.setSize( canvasSize.width*0.95, canvasSize.width*0.95 );
@@ -62,15 +62,19 @@ export default React.createClass({
             camera = new THREE.PerspectiveCamera( 90, 1, 0.1, 5000 );
 			
             // controls
-            controls = new OrbitControls( camera, renderer.domElement );
-			controls.enableDamping = true;
-			controls.dampingFactor = 0.25;
-			controls.enableZoom = true;
+            controls = new TrackballControls( camera, renderer.domElement );
+            controls.rotateSpeed = 1.0;
+            controls.zoomSpeed = 1.2;
+            controls.panSpeed = 0.8;
+            controls.noZoom = false;
+            controls.noPan = false;
+            controls.staticMoving = true;
+            controls.dynamicDampingFactor = 0.3;
             
             // model
             let loader = new STLLoader();
 
-            loader.load('/models/' + modelname, function (geometry) {
+            loader.load('/models' + modelname, function (geometry) {
                 let material = new THREE.MeshNormalMaterial();
                 let mesh = new THREE.Mesh(geometry, material);
 
@@ -87,7 +91,7 @@ export default React.createClass({
             });
 
             // light
-            light = new THREE.DirectionalLight( 0xffffff, 0.5 );
+            let light = new THREE.DirectionalLight( 0xffffff, 0.5 );
 			light.position.set( 1, 1, 1 );
 			scene.add( light );
 			light = new THREE.DirectionalLight( 0xffffff, 0.5 );
@@ -109,7 +113,7 @@ export default React.createClass({
             camera2 = new THREE.PerspectiveCamera( 50, 1, 1, 1000 );
             camera2.up = camera.up;
             // axe2
-            axes2 = new THREE.AxisHelper( 200 );
+            let axes2 = new THREE.AxisHelper( 200 );
             scene2.add( axes2 );
 		}
 
