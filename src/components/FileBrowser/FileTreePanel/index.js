@@ -1,8 +1,5 @@
 import React from 'react';
-//import $ from 'jquery';
-//var $ = require('jquery');
-//var tv = require('bootstrap-treeview')($);
-var TreeView = require('./react-bootstrap-treeview');
+import TreeView from './react-bootstrap-treeview';
 //import TreeView from 'treeview-react-bootstrap';
 import { updateDirDataAction } from '../../../actions';
 
@@ -13,7 +10,6 @@ export default React.createClass({
     },
 
     getInitialState: function() {
-        
         return {
             dir: this.props.dirStore.getState(),
             dirData: this.props.dirDataStore.getState(),
@@ -38,7 +34,7 @@ export default React.createClass({
             <div className="panel panel-default model-tree">
                 <div className="panel-heading">Models Lists</div>
                 <div className="list-group" ref="folder" id="folder">
-                    <TreeView data={this.state.dirData} />
+                    <TreeView data={this.state.dirData} socket={this.props.socket}/>
                 </div>
             </div>
         );
