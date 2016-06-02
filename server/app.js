@@ -150,26 +150,24 @@ io.on('connection', function(socket) {
     socket.on('getDirData',function() {
         var dirData = [
             {
-                text: "Parent 1",
+                text: "dir1",
                 nodes: [
-                    {
-                        text: "Child 1",
-                        nodes: [
-                          {
-                            text: "Grandchild 1"
-                          },
-                          {
-                            text: "Grandchild 2"
-                          }
+                            {
+                                text: "cycle-0.stl",
+                            },
+                            
+                            {
+                                text: "cycle-17.stl"
+                            }
                         ]
-                    },
-                    {
-                        text: "Child 2"
-                    }
-                ]
             },
+
             {
-                text: "Parent 2"
+                text: "pipe.stl"
+            },
+            
+            {
+                text: "slotted_disk.stl"
             }
         ];
 
