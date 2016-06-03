@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.use(serveStatic(__dirname + '/static'));
 app.use(bodyParser.urlencoded({extended: true}));
 
-var COMMENTS_FILE = path.join(__dirname, '/static/ModelInfo.json');
+var COMMENTS_FILE = path.join(__dirname, '/static/models/data.json');
 
 app.get('/', function(request, response) {
 	response.sendFile(__dirname + '/static/public/html/index.html');
@@ -168,6 +168,10 @@ io.on('connection', function(socket) {
             
             {
                 text: "slotted_disk.stl"
+            },
+
+            {
+                text: "airplane.stl"
             }
         ];
 
@@ -175,7 +179,7 @@ io.on('connection', function(socket) {
     });
 
     socket.on('updateModel', function(model) {
-        console.log('Recive updateModel:' + model);
+        console.log('[+] Recive updateModel: ' + model);
         socket.emit('sendModel', model);
     });
 
