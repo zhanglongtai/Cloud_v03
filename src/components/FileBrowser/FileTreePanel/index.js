@@ -18,7 +18,7 @@ export default React.createClass({
     
     componentDidMount() {
         let listenDirData = this.props.dirDataStore.subscribe(this.updateDirData);
-        this.props.socket.emit('feedback', 'FileTree connected.');
+        this.props.socket.emit('feedback', '[+] FileTree connected.');
         this.props.socket.emit('getDirData');
         this.props.socket.on('sendDirData', (dirData) => {
             this.props.dirDataStore.dispatch(updateDirDataAction(dirData));

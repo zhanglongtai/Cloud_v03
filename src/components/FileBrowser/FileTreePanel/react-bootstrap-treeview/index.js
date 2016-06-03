@@ -164,7 +164,7 @@ class TreeView extends React.Component {
                 	                    level={1}
                 	                    visible={true}
                 	                    options={this.props}
-                	                    parentDir={'/'}
+                	                    parentDir={''}
                                         socket={this.props.socket}
                 	         />);
 			});
