@@ -16,6 +16,7 @@ class Viewer extends React.Component {
 	constructor(props) {
 		super(props);
         this.state = {
+            expanded: false,
         	modelName: "",
         };
 
@@ -24,6 +25,7 @@ class Viewer extends React.Component {
         this.resetX = this.resetX.bind(this);
         this.resetY = this.resetY.bind(this);
         this.resetZ = this.resetZ.bind(this);
+        this.handelClick = this.handelClick.bind(this);
 	}
 
     // componentDidMount() {
@@ -74,7 +76,7 @@ class Viewer extends React.Component {
                              };
             renderer.setSize( canvasSize.width*0.95, canvasSize.width*0.95 );
             // deleted previous model view
-			container = document.getElementById("model-viewer");
+			container = document.getElementById("outCanvas");
             container.removeChild(container.lastChild);
             container.appendChild(renderer.domElement);
             
@@ -136,6 +138,7 @@ class Viewer extends React.Component {
             container2 = document.getElementById('coordinate');
             container2.removeChild(container2.lastChild);
             container2.appendChild( renderer2.domElement );
+            
             // camera2
             camera2 = new THREE.PerspectiveCamera( 50, 1, 1, 1000 );
             camera2.up = camera.up;
@@ -244,15 +247,52 @@ class Viewer extends React.Component {
         scene.add(camera);
     }
 
+    handelClick() {
+        let buttonNode = $("#button-fullscreen");
+        if (this.state.expanded) {
+            buttonNode.children('i').removeClass("glyphicon-resize-small");
+            buttonNode.children('i').addClass("glyphicon-resize-full");
+        } else {
+            buttonNode.children('i').removeClass("glyphicon-resize-full");
+            buttonNode.children('i').addClass("glyphicon-resize-small");
+        }
+        buttonNode.closest('.panel').toggleClass('panel-fullscreen');
+
+        // resize canvas
+        let canvasSize = {
+            width: $("#model-viewer").width(),
+            height: $("#model-viewer").height(),
+        };
+        renderer.setSize( canvasSize.width*0.95, canvasSize.height*0.95 );
+    }
+
     render() {
     	return (
             <div className="panel panel-default Viewer">
-                <div className="panel-heading">Model Viewport</div>
+                <div className="panel-heading">
+                    Model Viewport
+                    <ul className="list-inline panel-actions">
+                        <li>
+                            <a href="#" id="button-fullscreen" role="button" title="Toggle fullscreen" onClick={this.handelClick}>
+                                <i className="glyphicon glyphicon-resize-full"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
                 <div className="panel-body model-viewer" id="model-viewer">
-                    <div className="coordinate" id="coordinate">
+                    <div className="outCanvas" id="outCanvas" style={{
+                                                                      position: "relative",
+                                                                    }}>
+                        <div className="coordinate" id="coordinate" style={{
+                                                                            position: "absolute",
+                                                                            left: 20,
+                                                                            bottom: 20,
+                                                                            zIndex: 2
+                                                                          }}>
+                            <div></div>
+                        </div>
                         <div></div>
                     </div>
-                    <div></div>
                 </div>
                 <button onClick={this.changeMesh}>Mesh</button>
                 <button onClick={this.resetX}> + X </button>
