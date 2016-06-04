@@ -6,7 +6,7 @@ export default React.createClass({
 		return (
             <div className="App container-fluid">
                 <div className="row">
-                    <div className="Brand col-md-2">CAE-Cloud</div>
+                    <div className="Brand col-md-2">STUPA-Cloud</div>
                     <ul className="nav nav-tabs">
                         <li role="presentation"><IndexLink to="/" activeClassName="active" onlyActiveOnIndex={true}>File Browser</IndexLink></li>
                         <li role="presentation"><Link to="/mesh-generator" activeClassName="active">Mesh Generator</Link></li>
