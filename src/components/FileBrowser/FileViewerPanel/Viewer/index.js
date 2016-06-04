@@ -16,7 +16,6 @@ class Viewer extends React.Component {
 	constructor(props) {
 		super(props);
         this.state = {
-        	showMesh: false,
         	modelName: "",
         };
 
@@ -36,7 +35,13 @@ class Viewer extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({modelName: nextProps.modelName});
+        if (nextProps.modelName !== this.props.modelName) {
+            this.setState(
+                {
+                    modelName: nextProps.modelName,
+                }
+            );
+        }
     }
 
     shouldComponentUpdate(nextProps) {
@@ -125,8 +130,8 @@ class Viewer extends React.Component {
             // scene2
             scene2 = new THREE.Scene();
             // renderer2
-            renderer2 = new THREE.WebGLRenderer();
-            renderer2.setClearColor( 0XEEEEEE );
+            renderer2 = new THREE.WebGLRenderer({alpha: true});
+            renderer2.setClearColor( 0X000000, 0 );
             renderer2.setSize( canvasSize.width*0.1, canvasSize.width*0.1 );
             container2 = document.getElementById('coordinate');
             container2.removeChild(container2.lastChild);
@@ -256,6 +261,10 @@ class Viewer extends React.Component {
             </div>
     	);
     }
+}
+
+Viewer.propTypes = {
+    modelName: React.PropTypes.string.isRequired,
 }
 
 export default Viewer;
